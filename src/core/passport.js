@@ -30,7 +30,6 @@ passport.use(new FacebookStrategy({
   passReqToCallback: true,
 }, (req, accessToken, refreshToken, profile, done) => {
   /* eslint-disable no-underscore-dangle */
-  console.log(profile);
   const loginName = 'facebook';
   const claimType = 'urn:facebook:access_token';
   const fooBar = async () => {
@@ -42,10 +41,8 @@ passport.use(new FacebookStrategy({
       if (userLogin) {
         // There is already a Facebook account that belongs to you.
         // Sign in with that account or delete it, then link it with your current account.
-        console.log("User has already a Facebook auth method");
         done(null);
       } else {
-        console.log("Not have credentials")
         const user = await User.create({
           id: req.user.id,
           email: profile._json.email,
