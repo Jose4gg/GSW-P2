@@ -18,7 +18,7 @@ export default {
   action() {
     return {
       title,
-      component: <Create title={title} />,
+      component: <Create/>,
     };
   },
 

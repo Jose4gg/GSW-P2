@@ -21,7 +21,7 @@ export default {
     require('./login').default,
     require('./register').default,
     require('./admin').default,
-
+    require('./job').default,
     // place new routes before...
     require('./content').default,
     require('./notFound').default,
@@ -30,9 +30,8 @@ export default {
   async action({ next }) {
     // Execute each child route until one of them return the result
     const route = await next();
-
     // Provide default values for title, description etc.
-    route.title = `${route.title || 'Untitled Page'} - www.reactstarterkit.com`;
+    route.title = `${route.title || 'Untitled Page'}`;
     route.description = route.description || '';
 
     return route;
