@@ -12,6 +12,7 @@ import React, { PropTypes } from 'react';
 import {AppBar} from 'material-ui'
 import Feedback from '../Feedback';
 import Footer from '../Footer';
+import {Grid} from 'react-flexbox-grid'
 import Header from '../Header';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import s from './Layout.css';
@@ -20,9 +21,14 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 function Layout({ children }) {
   return (
     <MuiThemeProvider> 
-      <AppBar
-        title="Posiciones"
-      /> 
+      <span>
+        <AppBar
+          title="Posiciones"
+        /> 
+        <Grid>
+          {React.Children.only(children)}
+        </Grid>
+      </span>
     </MuiThemeProvider>
   );
 }

@@ -7,40 +7,36 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
+import { Col, Row } from 'react-flexbox-grid'
+import { Paper, RaisedButton, TextField } from 'material-ui';
 import React, { PropTypes } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
 import Layout from '../../components/Layout';
 import s from './Home.css';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
-function Home({ news }) {
-  return (
-    <Layout>
-      <div className={s.root}>
-        <div className={s.container}>
-          <h1 className={s.title}>React.js News</h1>
-          <ul className={s.news}>
-            {news.map((item, index) => (
-              <li key={index} className={s.newsItem}>
-                <a href={item.link} className={s.newsTitle}>{item.title}</a>
-                <span
-                  className={s.newsDesc}
-                  dangerouslySetInnerHTML={{ __html: item.contentSnippet }}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </Layout>
-  );
+const container = {
+    padding: 15,
 }
 
-Home.propTypes = {
-  news: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
-    contentSnippet: PropTypes.string,
-  })).isRequired,
-};
+function Home({ news }) {
+    return (
+        <Layout>
+            <Paper zDepth={1}>
+                <Row>
+                    <TextField
+                        name="search"
+                        floatingLabelText="Ingresa alguna posicion"
+                        />
+                    <RaisedButton
+                        primary={true}
+                        label="Buscar"
+                        />
+                </Row>
+            </Paper>
+        </Layout>
+    );
+}
 
-export default withStyles(s)(Home);
+
+export default Home;
