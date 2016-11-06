@@ -67,19 +67,20 @@ const config = {
               // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx-self
               'transform-react-jsx-self',
             ] : [
-                // Remove unnecessary React propTypes from the production build
-                // https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types
-                'transform-react-remove-prop-types',
-                // Treat React JSX elements as value types and hoist them to the highest scope
-                // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-constant-elements
-                'transform-react-constant-elements',
-                // Turn JSX elements into exploded React objects
-                // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-inline-elements
-                'transform-react-inline-elements',
-              ],
+              // Remove unnecessary React propTypes from the production build
+              // https://github.com/oliviertassinari/babel-plugin-transform-react-remove-prop-types
+              'transform-react-remove-prop-types',
+              // Treat React JSX elements as value types and hoist them to the highest scope
+              // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-constant-elements
+              'transform-react-constant-elements',
+              // Turn JSX elements into exploded React objects
+              // https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-inline-elements
+              'transform-react-inline-elements',
+            ],
           ],
         },
       },
+      { test: /\.tsx?$/, loader: "ts-loader" },
       {
         test: /\.css/,
         loaders: [
@@ -96,13 +97,6 @@ const config = {
           })}`,
           'postcss-loader?pack=default',
         ],
-        include: path.join(__dirname, 'node_modules'), // oops, this also includes flexboxgrid
-        exclude: /flexboxgrid/, // so we have to exclude it
-      },
-      {
-        test: /\.css$/,
-        loader: 'style!css?modules',
-        include: /flexboxgrid/,
       },
       {
         test: /\.scss$/,
@@ -142,7 +136,7 @@ const config = {
   resolve: {
     root: path.resolve(__dirname, '../src'),
     modulesDirectories: ['node_modules'],
-    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.json'],
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.json', '.css', '.scss', '.ts', '.tsx'],
   },
 
   cache: isDebug,

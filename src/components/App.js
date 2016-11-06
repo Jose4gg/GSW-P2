@@ -1,13 +1,8 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import React, { PropTypes } from 'react';
+
+import ApolloClient from 'apollo-client'
+import { ApolloProvider } from 'react-apollo';
+import { createNetworkInterface } from 'apollo-client';
 
 const ContextType = {
   // Enables critical path CSS rendering
@@ -15,21 +10,23 @@ const ContextType = {
   insertCss: PropTypes.func.isRequired,
 };
 
-/**
- * The top-level React component setting context (global) variables
- * that can be accessed from all the child components.
- *
- * https://facebook.github.io/react/docs/context.html
- *
- * Usage example:
- *
- *   const context = {
- *     history: createBrowserHistory(),
- *     store: createStore(),
- *   };
- *
- *   ReactDOM.render(<App context={context}><HomePage /></App>, container);
- */
+const networkInterface = createNetworkInterface({
+  uri: 'http://localhost:3000/graphql',
+  opts: {
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    },
+});
+
+const client = new ApolloClient({
+  networkInterface,
+});
+
+
 class App extends React.Component {
 
   static propTypes = {
@@ -46,7 +43,11 @@ class App extends React.Component {
   render() {
     // NOTE: If you need to add or modify header, footer etc. of the app,
     // please do that inside the Layout component.
-    return React.Children.only(this.props.children);
+    return (
+      <ApolloProvider client={client}>
+        {React.Children.only(this.props.children)}
+      </ApolloProvider>
+    );
   }
 
 }

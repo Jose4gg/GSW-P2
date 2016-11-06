@@ -21,6 +21,7 @@ import UniversalRouter from 'universal-router';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cors from 'cors'
 import errorPageStyle from './routes/error/ErrorPage.css';
 import express from 'express';
 import expressGraphQL from 'express-graphql';
@@ -33,7 +34,13 @@ import routes from './routes';
 import schema from './data/schema';
 
 const app = express();
-
+var corsOptions = {
+  origin: ["http://localhost:3000", "http://localhost:3001"],
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true,
+};
+app.options('*', cors(corsOptions)); // include before other routes
+app.use(cors(corsOptions));
 //
 // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
 // user agent is not known.
@@ -48,7 +55,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 //
 // Authentication
 // -----------------------------------------------------------------------------
@@ -68,7 +74,7 @@ app.get('/login/facebook/return',
   (req, res) => {
     const expiresIn = 60 * 60 * 24 * 180; // 180 days
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: false, secure: false });
     res.redirect('/');
   }
 );
@@ -89,7 +95,6 @@ app.use('/graphql', expressGraphQL(req => ({
 app.get('*', async (req, res, next) => {
   try {
     const css = new Set();
-
     // Global (context) variables that can be easily accessed from any React component
     // https://facebook.github.io/react/docs/context.html
     const context = {
