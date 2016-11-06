@@ -7,18 +7,22 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import sequelize from '../sequelize';
+import Category from './Category';
+import Job from './Job'
 import User from './User';
-import UserLogin from './UserLogin';
 import UserClaim from './UserClaim';
+import UserLogin from './UserLogin';
 import UserProfile from './UserProfile';
-
+import sequelize from '../sequelize';
 User.hasMany(UserLogin, {
   foreignKey: 'userId',
   as: 'logins',
   onUpdate: 'cascade',
   onDelete: 'cascade',
 });
+
+Category.hasMany(Job);
+Job.belongsTo(Category);
 
 User.hasMany(UserClaim, {
   foreignKey: 'userId',
@@ -39,4 +43,4 @@ function sync(...args) {
 }
 
 export default { sync };
-export { User, UserLogin, UserClaim, UserProfile };
+export { User, UserLogin, UserClaim, UserProfile, Job };
