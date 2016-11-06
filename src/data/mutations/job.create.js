@@ -17,7 +17,7 @@ const JobCreate = {
     Logo: { type: new NonNull(StringType) },
     URL: { type: new NonNull(StringType) },
     Job: { type: new NonNull(StringType) },
-    company: { type: new NonNull(StringType) },
+    Location: { type: new NonNull(StringType) },
     Description: { type: new NonNull(StringType) },
     Email: { type: new NonNull(StringType) },
     Public: {type: new NonNull(GraphQLBoolean)}

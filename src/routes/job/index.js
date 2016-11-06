@@ -8,7 +8,8 @@
  */
 
 import Create from './CreateJob';
-import J from './JobDetail'
+import J from './JobDetail';
+import A from './View'
 import React from 'react';
 const title = 'Create a Job';
 
@@ -35,4 +36,15 @@ const JobDetail = {
   },
 }
 
-export {JobDetail};
+const Viewer = {
+   path: '/Job/View',
+  action() {
+    return {
+      title: "PreviewJob",
+      component: <A/>,
+    };
+  },
+}
+
+
+export {JobDetail, Viewer};

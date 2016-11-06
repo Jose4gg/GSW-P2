@@ -20,7 +20,7 @@ const Job = Model.define('Job', {
   },
   Location:  {
       type: DataType.STRING,
-      allowNull: true
+      allowNull: false
   },
   Description: {
       type: DataType.STRING,

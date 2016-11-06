@@ -23,6 +23,22 @@ function Html({ title, description, style, script, chunk, children }) {
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"/>
         {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
+        <script>
+          {function getUrlParameter(sParam) {
+              var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                  sURLVariables = sPageURL.split('&'),
+                  sParameterName,
+                  i;
+
+              for (i = 0; i < sURLVariables.length; i++) {
+                  sParameterName = sURLVariables[i].split('=');
+
+                  if (sParameterName[0] === sParam) {
+                      return sParameterName[1] === undefined ? true : sParameterName[1];
+                  }
+              }
+          }}
+        </script>
       </head>
       <body>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />

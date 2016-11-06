@@ -13,7 +13,7 @@ export const port = process.env.PORT || 3000;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
 import secret from './secret/secret'
-export const databaseUrl = process.env.DATABASE_URL || 'mssql://sa:Lomejor12@localhost:1433/Empleos';
+export const databaseUrl = process.env.DATABASE_URL || 'mssql://sa:Lomejor12@10.0.0.8:1433/Empleos';
 
 export const analytics = {
 

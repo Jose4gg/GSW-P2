@@ -59,7 +59,7 @@ const CreateJob = observer(props =>
                 name="Location"
                 fullWidth={true}
                 required
-                floatingLabelText="Posicion"
+                floatingLabelText="Location"
                 defaultValue={Work.job.Location}
             />
             <FormsyText
