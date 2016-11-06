@@ -8,20 +8,22 @@
  */
 
 import React, { PropTypes } from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import s from './Layout.css';
-import Header from '../Header';
+
+import {AppBar} from 'material-ui'
 import Feedback from '../Feedback';
 import Footer from '../Footer';
+import Header from '../Header';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import s from './Layout.css';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 function Layout({ children }) {
   return (
-    <div>
-      <Header />
-      {React.Children.only(children)}
-      <Feedback />
-      <Footer />
-    </div>
+    <MuiThemeProvider> 
+      <AppBar
+        title="Posiciones"
+      /> 
+    </MuiThemeProvider>
   );
 }
 

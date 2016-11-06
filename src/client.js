@@ -8,16 +8,20 @@
  */
 
 import 'babel-polyfill';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FastClick from 'fastclick';
-import UniversalRouter from 'universal-router';
-import queryString from 'query-string';
-import { createPath } from 'history/PathUtils';
-import history from './core/history';
-import App from './components/App';
+
 import { ErrorReporter, deepForceUpdate } from './core/devUtils';
 
+import App from './components/App';
+import FastClick from 'fastclick';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import UniversalRouter from 'universal-router';
+import { createPath } from 'history/PathUtils';
+import history from './core/history';
+import inject from 'react-tap-event-plugin';
+import queryString from 'query-string';
+
+inject();
 // Global (context) variables that can be easily accessed from any React component
 // https://facebook.github.io/react/docs/context.html
 const context = {
