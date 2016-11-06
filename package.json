@@ -18,6 +18,7 @@
     "express": "4.14.0",
     "express-graphql": "0.5.4",
     "express-jwt": "5.1.0",
+    "faker": "^3.1.0",
     "fastclick": "1.0.6",
     "fbjs": "0.8.5",
     "formsy-material-ui": "^0.5.2",

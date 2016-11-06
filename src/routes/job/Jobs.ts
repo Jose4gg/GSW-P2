@@ -1,13 +1,22 @@
-import { action, observable } from 'mobx';
+import {action, observable} from 'mobx';
 
-class Job {
-    @observable job = {};
+class App {
+    @observable job = false;
+    @observable valid = false;
+    setJob(job){
+        this.job = job;
+    }    
 
-    @action insertJob(j){
-        this.job = j;
+    setValid(){
+        this.valid = true;
     }
+    setInvalid(){
+        this.valid = false;
+    }
+    
 }
 
-const _job = new Job();
 
-export default {Job: _job};
+const _APP = new App()
+
+export default _APP ;

@@ -19,7 +19,7 @@ const Job = Model.define('Job', {
       type: DataType.STRING
   },
   Location:  {
-      type: DataType.GEOMETRY('POINT'),
+      type: DataType.STRING,
       allowNull: true
   },
   Description: {

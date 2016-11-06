@@ -5,30 +5,36 @@ import {
   FormsySelect,
   FormsyText,
 } from 'formsy-material-ui/lib';
+import {MenuItem, RaisedButton} from 'material-ui'
 
-import {Job} from './Jobs';
 import Layout from '../../components/Layout';
-import {MenuItem} from 'material-ui'
 import React from 'react';
+import Work from './Jobs';
+import history from '../../core/history';
 import {observer} from 'mobx-react'
 
 const CreateJob = observer(props =>  
     <Layout>
-        <Formsy.Form onValidSubmit={(a) => Job.insertJob(a)}>
+        <Formsy.Form onValidSubmit={(a) => {Work.setJob(a); history.push('/Job/PreviewJob')}} onValid={() => Work.setValid()} onInvalid={() => Work.setInvalid}>
             <FormsyText
                 name="company"
                 fullWidth={true}
                 floatingLabelText="Company"
+                defaultValue={Work.job.company}
+                
             />
             <FormsyText
                 name="Description"
                 fullWidth={true}
+                required
+                defaultValue={Work.job.Description}
                 floatingLabelText="Description"
             />
             <FormsySelect
                 name="type"
                 fullWidth={true}
                 required
+                defaultValue={Work.job.type}                
                 floatingLabelText="Tipo de Puesto"
                 >
                 <MenuItem value={'FULL-TIME'} primaryText="FULL-TIME" />
@@ -38,17 +44,30 @@ const CreateJob = observer(props =>
             <FormsyText
                 name="Logo"
                 fullWidth={true}
+                defaultValue={Work.job.Logo}
+                required
                 floatingLabelText="Logo de la empresa"
             />
             <FormsyText
                 name="Job"
                 fullWidth={true}
+                required
                 floatingLabelText="Posicion"
+                defaultValue={Work.job.Job}
+            />
+            <FormsyText
+                name="Location"
+                fullWidth={true}
+                required
+                floatingLabelText="Posicion"
+                defaultValue={Work.job.Location}
             />
             <FormsyText
                 name="URL"
                 fullWidth={true}
+                defaultValue={Work.job.URL}                
                 validations="isUrl"
+                required
                 validationError={"Debe ser una URL valida"}
                 updateImmediately={true}
                 floatingLabelText="URL de la empresa"
@@ -57,12 +76,14 @@ const CreateJob = observer(props =>
                 name="Email"
                 fullWidth={true}
                 floatingLabelText="Email"
+                defaultValue={Work.job.Email}                
                  validations="isEmail"
+                 required
                 validationError={"Debes ser una direcciond de correo valida"}
                 updateImmediately={true}
                 floatingLabelText="Email"
             />
-            <FormsyRadioGroup name="Public" defaultSelected={true}>
+            <FormsyRadioGroup name="Public" defaultSelected={Work.job.Public} required>
                 <FormsyRadio
                     value={true}
                     label="Publico"
@@ -72,8 +93,12 @@ const CreateJob = observer(props =>
                     label="No Publico"
                 />
             </FormsyRadioGroup>
-            
-            <button type="submit"></button>
+            <RaisedButton
+                label="Postear Empleo"
+                primary={true}
+                type="submit"
+                disabled={!Work.valid}
+            />  
         </Formsy.Form>
     </Layout>
 );

@@ -8,8 +8,8 @@
  */
 
 import Create from './CreateJob';
+import J from './JobDetail'
 import React from 'react';
-
 const title = 'Create a Job';
 
 export default {
@@ -23,3 +23,16 @@ export default {
   },
 
 };
+
+
+const JobDetail = {
+   path: '/Job/PreviewJob',
+  action() {
+    return {
+      title: "PreviewJob",
+      component: <J/>,
+    };
+  },
+}
+
+export {JobDetail};
