@@ -34,6 +34,7 @@
     "material-ui": "^0.16.1",
     "mobx": "^2.6.1",
     "mobx-react": "^3.5.8",
+    "mobx-translate": "0.0.6",
     "node-fetch": "1.6.3",
     "normalize.css": "5.0.0",
     "passport": "0.3.2",

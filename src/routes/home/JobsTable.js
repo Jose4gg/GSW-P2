@@ -3,6 +3,8 @@ import { Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow
 import {RaisedButton} from 'material-ui';
 import React from 'react';
 import history from '../../core/history'
+import { observer } from 'mobx-react'
+import {trans} from '../../Stores/Dictionary'
 
 const state = {
     fixedHeader: true,
@@ -17,7 +19,7 @@ const state = {
     height: '300px',
 };
 import Link from '../../components/Link'
-const _Table = (props) => (
+const _Table = observer(props => (
     <div>
         <Table
           height={state.height}
@@ -32,10 +34,10 @@ const _Table = (props) => (
             enableSelectAll={state.enableSelectAll}
           >
             <TableRow>
-              <TableHeaderColumn >Location</TableHeaderColumn>
-              <TableHeaderColumn >Position</TableHeaderColumn>
-              <TableHeaderColumn >Company</TableHeaderColumn>
-              <TableHeaderColumn >Options</TableHeaderColumn>
+              <TableHeaderColumn >{trans.key.LAYOUT.LOCATION()}</TableHeaderColumn>
+              <TableHeaderColumn >{trans.key.LAYOUT.POSITION()}</TableHeaderColumn>
+              <TableHeaderColumn >{trans.key.LAYOUT.COMPANY()}</TableHeaderColumn>
+              <TableHeaderColumn >{trans.key.LAYOUT.OPTIONS()}</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -51,7 +53,7 @@ const _Table = (props) => (
                 <TableRowColumn>{row.company}</TableRowColumn>
                 <TableRowColumn>
                     <Link to={"/Job/View/" + row.id}>
-                        <RaisedButton primary={true} label="See More"/>
+                        <RaisedButton primary={true} label={trans.key.LAYOUT.SEEMORE()}/>
                     </Link>
                 </TableRowColumn>
               </TableRow>
@@ -59,7 +61,7 @@ const _Table = (props) => (
           </TableBody>
         </Table>
       </div>
-);
+))
 
 export default _Table;
 

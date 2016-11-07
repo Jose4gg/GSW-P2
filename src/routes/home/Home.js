@@ -23,7 +23,7 @@ const container = {
     padding: 15,
 }
 import history from '../../core/history'
-
+import {trans} from '../../Stores/Dictionary'
 const Home = observer(props => {
     if (!props.data) return <span />
     if (props.data.loading) return <span />
@@ -37,19 +37,19 @@ const Home = observer(props => {
                             <TextField
                                 name="search"
                                 onChange={(a) => App.setText(a.target.value)}
-                                floatingLabelText="Ingresa alguna posicion"
+                                floatingLabelText={trans.key.LAYOUT.ENTER_QUERY()}
                                 />
                             &nbsp;&nbsp;&nbsp;&nbsp;
                                   <Link to={`/Search/${App.text}`}>
                                 <RaisedButton
                                     primary={true}
-                                    label="Buscar"
+                                    label={trans.key.LAYOUT.SEARCH()}
                                     />
                             </Link>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <Link to="/Job/Create">
                                 <RaisedButton
-                                    label="Post A Job"
+                                    label={trans.key.LAYOUT.POST_A_JOB()}
                                     secondary={true}
                                     />
                             </Link>
