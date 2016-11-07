@@ -37,11 +37,11 @@ const JobDetail = {
 }
 
 const Viewer = {
-   path: '/Job/View',
-  action() {
+   path: '/Job/View/:id',
+  action({params}) {
     return {
       title: "PreviewJob",
-      component: <A/>,
+      component: <A id={params.id}/>,
     };
   },
 }

@@ -23,7 +23,7 @@ const Job = Model.define('Job', {
       allowNull: false
   },
   Description: {
-      type: DataType.STRING,
+      type: DataType.STRING(2000),
   },
   Email: {
       type: DataType.STRING,

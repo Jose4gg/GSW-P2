@@ -67,8 +67,8 @@ const JobDetail = observer(props =>
 );
 
 const SubmitJob = gql`
-    mutation ($company: String!, $type: String!, $Logo: String!, $URL: String!, $Job: String!, $Description: String!, $Email: String!, $Public: Boolean!, $Location: String!) {
-        jobCreate(company: $company,  type: $type, Logo: $Logo, URL: $URL, Job: $Job, Description: $Description, Email: $Email, Public: $Public, Location: $Location) {
+    mutation ($company: String!, $type: String!, $Logo: String!, $URL: String!, $Job: String!, $Description: String!, $Email: String!, $Public: Boolean!, $Location: String!, $CategoryId: Int!) {
+        jobCreate(company: $company,  type: $type, Logo: $Logo, URL: $URL, Job: $Job, Description: $Description, Email: $Email, Public: $Public, Location: $Location, CategoryId: $CategoryId) {
             id
         }
     }

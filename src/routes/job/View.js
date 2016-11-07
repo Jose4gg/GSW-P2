@@ -3,7 +3,6 @@ import history from '../../core/history';
 
 import Layout from '../../components/Layout';
 import React from 'react';
-import { observer } from 'mobx-react'
 import { Paper, RaisedButton } from 'material-ui'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -15,11 +14,10 @@ const Style = {
 
 
 
-const JobDetail = observer(props => {
-    if (props.data.job.loading) {return <span />;}
-    else{
-        console.log(props);
-    }
+const JobDetail = (props) => {
+    if(!props.data) return <span/>
+    if(!props) return <span/>
+    if (props.data.loading) {return <span />;}
     return (
         <Layout>
             <Paper style={Style}>
@@ -28,7 +26,7 @@ const JobDetail = observer(props => {
                         <h2>{props.data.job.company}</h2>
                         <h5>{props.data.job.Location}</h5>
                         <hr />
-                        <h5>{props.data.job.Job}- {props.data.job.type}</h5>
+                        <h5>{props.data.job.Job} - {props.data.job.type}</h5>
                     </Col>
                     <Col md={2} xs={3}>
                         <img src={props.data.job.Logo} alt="" className="img-responsive" width="304" height="236" />
@@ -43,9 +41,8 @@ const JobDetail = observer(props => {
                         <br />
                         <br />
                         <br />
-
                         <h4>How to Apply?</h4>
-                        Send your Resume to {props.data.job.Email}OR at {props.data.job.URL}
+                        Send your Resume to {props.data.job.Email} OR at {props.data.job.URL}
                     </Col>
                 </Row>
                 <br />
@@ -53,7 +50,7 @@ const JobDetail = observer(props => {
         </Layout>
     )
 }
-);
+
 
 const Data = gql`
     query ($id: Int!) {
@@ -70,31 +67,9 @@ const Data = gql`
         }
     }
 `;
-function searchToObject() {
-    if (global.location) {
-        var pairs = global.location.search.substring(1).split("&"),
-            obj = {},
-            pair,
-            i;
-
-        for (i in pairs) {
-            if (pairs[i] === "") continue;
-
-            pair = pairs[i].split("=");
-            obj[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-        }
-
-        return obj;
-    }
-}
-let a; 
-if(searchToObject() == undefined){
-    a = 0
-}
-else {
-    a = searchToObject().id
-}
+// var search = history.location.search.substring(1);
+// JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
 
 export default graphql(Data, {
-    options: { variables: { id: parseInt(a) } }
+    options:  ({ id }) => ({ variables: { id: id } }),
 })(JobDetail);

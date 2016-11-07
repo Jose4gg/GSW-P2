@@ -17,7 +17,7 @@ import jobCreate from './mutations/job.create'
 import me from './queries/me';
 import job from './queries/job';
 import news from './queries/news';
-
+import categories from './queries/categories'
 //
 
 const schema = new Schema({
@@ -27,7 +27,8 @@ const schema = new Schema({
       me,
       content,
       news,
-      job
+      job,
+      categories
     },
   }),
   mutation: new ObjectType({

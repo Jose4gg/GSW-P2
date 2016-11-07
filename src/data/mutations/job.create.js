@@ -19,6 +19,7 @@ const JobCreate = {
     Job: { type: new NonNull(StringType) },
     Location: { type: new NonNull(StringType) },
     Description: { type: new NonNull(StringType) },
+    CategoryId: { type: new NonNull(Int) },
     Email: { type: new NonNull(StringType) },
     Public: {type: new NonNull(GraphQLBoolean)}
   },

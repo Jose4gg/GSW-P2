@@ -41,6 +41,7 @@ class Link extends Component {
 
     event.preventDefault();
     history.push(this.props.to);
+    event.preventDefault();
   };
 
   render() {
