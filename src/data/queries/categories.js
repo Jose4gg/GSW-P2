@@ -1,16 +1,15 @@
-import { User, UserProfile } from '../models'
+import { Category, Job } from '../models';
 import {
   GraphQLBoolean,
+  GraphQLList,
   GraphQLInt as Int,
   GraphQLNonNull as NonNull,
   GraphQLObjectType as ObjectType,
-  GraphQLList,
   GraphQLString as StringType,
 } from 'graphql';
+import { User, UserProfile } from '../models'
 
 import CategoryType from '../types/CategoryType';
-import { Category, Job } from '../models';
-
 
 const categories = {
     type: new GraphQLList(CategoryType),
@@ -22,5 +21,6 @@ const categories = {
         });
     },
 };
+
 
 export default categories;

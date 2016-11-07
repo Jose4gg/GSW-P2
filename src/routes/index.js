@@ -10,6 +10,7 @@
 /* eslint-disable global-require */
 import {EditJob, JobDetail, Viewer, ViewerEdit} from './job'
 
+import {Search as B} from './home/category'
 import {Profile} from './login'
 import {Search} from './home/Search'
 
@@ -31,6 +32,7 @@ export default {
     Viewer,
     Search,
     ViewerEdit,
+    B,
     Profile,
     // place new routes before...
     require('./content').default,

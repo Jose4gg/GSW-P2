@@ -59,7 +59,7 @@ const EditJob = {
   action({params}) {
     return {
       title: "Edit Job",
-      component: <Edit id={params.id} secret={params.secret}/>,
+      component: <Edit id={params.id} Secret={params.secret}/>,
     };
   },
 }

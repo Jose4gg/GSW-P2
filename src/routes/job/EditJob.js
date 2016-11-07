@@ -21,7 +21,12 @@ const CreateJob = observer(props => {
     if (!props.data.job) return <span />
     return (
         <Layout>
-            <Formsy.Form onValidSubmit={(a) => { Work.setJob(a); history.push('/Job/PreviewJob') } } onValid={() => Work.setValid()} onInvalid={() => Work.setInvalid}>
+            <Formsy.Form onValidSubmit={(a) => {
+                a.Secret = props.Secret
+                a.id = parseInt(props.id)
+                props.submit(a).then(({data}) => {
+                history.push("/Job/View/" + data.jobCreate.id + "/" + data.jobCreate.Secret);
+            })}} onValid={() => Work.setValid()} onInvalid={() => Work.setInvalid}>
                 <FormsyText
                     name="company"
                     fullWidth={true}
@@ -29,6 +34,7 @@ const CreateJob = observer(props => {
                     defaultValue={props.data.job.company}
 
                     />
+                
                 <FormsyText
                     name="Description"
                     fullWidth={true}
@@ -110,12 +116,7 @@ const CreateJob = observer(props => {
                         label="No Publico"
                         />
                 </FormsyRadioGroup>
-                <RaisedButton
-                    label="Postear Empleo"
-                    primary={true}
-                    type="submit"
-                    disabled={!Work.valid}
-                    />
+                <RaisedButton primary={true} label="Publicar" type="submit" />
             </Formsy.Form>
         </Layout>)
 });
@@ -141,9 +142,22 @@ const data = gql`
             Location
         }
     }
-    
 `;
 
-export default graphql(data, {
-    options:  ({ id }) => ({ variables: { id: id } }),
+const withMutation = gql`
+     mutation ($company: String!, $type: String!, $Logo: String!, $URL: String!, $Job: String!, $Description: String!, $Email: String!, $Public: Boolean!, $Location: String!, $CategoryId: Int!, $Secret: String!) {
+        JobEdit(company: $company,  type: $type, Logo: $Logo, URL: $URL, Job: $Job, Description: $Description, Email: $Email, Public: $Public, Location: $Location, CategoryId: $CategoryId, Secret: $Secret) {
+            id
+            Secret
+        }
+    }
+`
+const a = graphql(data, {
+    options: (props) => ({ variables: { id: props.id, Secret: props.Secret } }),
 })(CreateJob);
+
+export default graphql(withMutation, {
+    props: ({mutate}) => ({
+        submit: (data) => mutate({ variables: data })
+    }),
+})(a);

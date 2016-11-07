@@ -11,14 +11,16 @@ import {
   GraphQLObjectType as ObjectType,
   GraphQLSchema as Schema,
 } from 'graphql';
+import job, {JobByCategory} from './queries/job';
 
+import {JobEdit} from './mutations/job.create'
+import JobFullTextSearch from './queries/jobFullText'
+import categories from './queries/categories'
 import content from './queries/content';
 import jobCreate from './mutations/job.create'
 import me from './queries/me';
-import job from './queries/job';
 import news from './queries/news';
-import categories from './queries/categories'
-import JobFullTextSearch from './queries/jobFullText'
+
 //
 
 const schema = new Schema({
@@ -30,13 +32,15 @@ const schema = new Schema({
       news,
       job,
       categories,
+      JobByCategory,
       JobFullTextSearch
     },
   }),
   mutation: new ObjectType({
     name: "Mutation",
     fields: {
-      jobCreate
+      jobCreate,
+      JobEdit
     }
   })
 });

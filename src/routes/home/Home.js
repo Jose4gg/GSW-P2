@@ -62,7 +62,9 @@ const Home = observer(props => {
                         return (
                             <span key={i}>
                                 <Paper zDepth={1} style={{ padding: 10 }} key={i}>
-                                    <h6>{object.description}</h6>
+                                    <Link to={`/Category/${object.id}`}>
+                                        <h6>{object.description}</h6>
+                                    </Link>
                                     <hr />
                                     <Table
                                         jobs={object.jobs}
@@ -83,6 +85,7 @@ const Data = gql`
     query {
          categories{
             description
+            id
             jobs {
                 Location
                 company

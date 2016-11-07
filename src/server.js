@@ -10,6 +10,7 @@
 import 'babel-polyfill';
 
 import { auth, port } from './config';
+import models, { Category, Job } from './data/models';
 
 import App from './components/App';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
@@ -27,8 +28,8 @@ import errorPageStyle from './routes/error/ErrorPage.css';
 import express from 'express';
 import expressGraphQL from 'express-graphql';
 import expressJwt from 'express-jwt';
+import { getAllPost } from './core/utils'
 import jwt from 'jsonwebtoken';
-import models from './data/models';
 import passport from './core/passport';
 import path from 'path';
 import routes from './routes';
@@ -81,33 +82,50 @@ app.get('/login/facebook/return',
     res.redirect('/');
   }
 );
-app.get('/rss/:token', (req, res) => {
 
-  
+app.get('/rssJson/:token', (req, res, next) => {
   var feed = new RSS({
     title: 'JOBS',
     feed_url: 'http://localhost.com/rss',
     site_url: 'http://localhost.com',
     language: ['en', 'es'],
-    categories: ['Category 1', 'Category 2', 'Category 3'],
   });
-
-  feed.item({
-    title: 'item title',
-    description: 'use this for the content. It can include html.',
-    url: 'http://example.com/article4?this&that', // link to the item
-    guid: '1123', // optional - defaults to url
-    categories: ['Category 1', 'Category 2', 'Category 3', 'Category 4'], // optional - array of item categories
-    author: 'Guest Author', // optional - defaults to feed author property
-    date: 'May 27, 2012', // any format that js Date can parse.
-    lat: 33.417974, //optional latitude field for GeoRSS
-    long: -111.933231, //optional longitude field for GeoRSS
+  
+  models.sync().catch(err => console.error(err.stack)).then(() => {
+    Job.findAll({}).then(function (data) {
+      data.map(a => feed.item({
+        title: a.Job,
+        description: a.Description,
+        url: 'http://localhost:3000/Job/View/' + a.id, // link to the item
+        author: a.company, // optional - defaults to feed author property
+        date: a.createdAt, // any format that js Date can parse.
+      }))
+      res.json(feed)
+    })
   });
-  res.set('Content-Type', 'text/xml');
-  res.send(feed.xml());
 });
-
-//
+app.get('/rss/:token', (req, res, next) => {
+  var feed = new RSS({
+    title: 'JOBS',
+    feed_url: 'http://localhost.com/rss',
+    site_url: 'http://localhost.com',
+    language: ['en', 'es'],
+  });
+  
+  models.sync().catch(err => console.error(err.stack)).then(() => {
+    Job.findAll({}).then(function (data) {
+      data.map(a => feed.item({
+        title: a.Job,
+        description: a.Description,
+        url: 'http://localhost:3000/Job/View/' + a.id, // link to the item
+        author: a.company, // optional - defaults to feed author property
+        date: a.createdAt, // any format that js Date can parse.
+      }))
+      res.set('Content-Type', 'text/xml');
+      res.send(feed.xml());
+    })
+  });
+});
 // Register API middleware
 // -----------------------------------------------------------------------------
 app.use('/graphql', expressGraphQL(req => ({

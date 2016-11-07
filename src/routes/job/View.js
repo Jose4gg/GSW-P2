@@ -21,7 +21,7 @@ const Style = {
 const JobDetail = observer(props => {
     let a = <span></span>
     if (props.secret) {
-        a = <Link to={`/Job/Edit/${props.id}/${props.secret}`}>{trans.key.LAYOUT.EDIT()}</Link>
+        a = <Link to={`/Job/Edit/${props.id}/${props.secret}`}>{trans.key.LAYOUT.EDIT}</Link>
     }
     if(!props.data) return <span/>
     if(!props) return <span/>
