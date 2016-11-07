@@ -17,7 +17,9 @@ const CategoryType = new ObjectType({
     jobs: {
       type: new NonNull(new GraphQLList(JobType)),
       resolve(a) {
-        return Job.findAll({where: {CategoryId:  a.id}})
+        return Job.findAll({where: {CategoryId:  a.id}, order:[
+          ['createdAt', 'DESC']
+        ]})
       }
     }
   },

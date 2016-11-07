@@ -30,6 +30,8 @@ const CreateJob = observer(props => {
                 <FormsyText
                     name="Description"
                     fullWidth={true}
+                    rows={4}
+                    rowsMax={4}
                     required
                     defaultValue={Work.job.Description}
                     floatingLabelText="Description"

@@ -43,4 +43,4 @@ function sync(...args) {
 }
 
 export default { sync };
-export { User, UserLogin, UserClaim, UserProfile, Job, Category };
+export { User, UserLogin, UserClaim, UserProfile, Job, Category, sequelize };

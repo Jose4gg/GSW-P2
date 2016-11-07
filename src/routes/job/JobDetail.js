@@ -37,7 +37,7 @@ const JobDetail = observer(props =>
                     <h2>{Work.job.company}</h2>
                     <h5>{Work.job.Location}</h5>
                     <hr />
-                    <h5>{Work.job.Job}- {Work.job.type}</h5>
+                    <h5>{Work.job.Job} - {Work.job.type}</h5>
                 </Col>
                 <Col md={2} xs={3}>
                     <img src={Work.job.Logo} alt="" className="img-responsive" width="304" height="236" />
@@ -60,7 +60,8 @@ const JobDetail = observer(props =>
             <br />
             <RaisedButton primary={true} label="Publicar" onClick={() => props.submit(Work.job).then(({data})=>{
                 console.log(data);
-                history.push("/Job/View?id=" + data.jobCreate.id);
+                history.push("/Job/View/" + data.jobCreate.id);
+                Work.setJob = {};
             })} />
         </Paper>
     </Layout>

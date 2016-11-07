@@ -7,6 +7,7 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 import App from '../../Stores/App'
+
 import { Col, Row } from 'react-bootstrap'
 import { Paper, RaisedButton, TextField } from 'material-ui';
 import React, { PropTypes } from 'react';
@@ -19,15 +20,14 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import Table from './JobsTable';
 import Link from '../../components/Link'
 import { observer } from 'mobx-react'
+import history from '../../core/history'
 const container = {
     padding: 15,
 }
-import history from '../../core/history'
-
 const Home = observer(props => {
     if (!props.data) return <span />
     if (props.data.loading) return <span />
-    if (!props.data.categories) return <span />
+    if (!props.data.JobFullTextSearch) return <span />
     return (
         <Layout>
             <Row>
@@ -40,37 +40,28 @@ const Home = observer(props => {
                                 floatingLabelText="Ingresa alguna posicion"
                                 />
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                                  <Link to={`/Search/${App.text}`}>
+                            <Link to={`/Search/${App.text}`}>
                                 <RaisedButton
-                                    primary={true}
-                                    label="Buscar"
-                                    />
+                                primary={true}
+                                label="Buscar"
+                                />
                             </Link>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <Link to="/Job/Create">
                                 <RaisedButton
                                     label="Post A Job"
+
                                     secondary={true}
                                     />
                             </Link>
                         </Col>
                     </Paper>
                     <br />
-                    {props.data.categories.map(function(object, i) {
-                        return (
-                            <span key={i}>
-                                <Paper zDepth={1} style={{ padding: 10 }} key={i}>
-                                    <h6>{object.description}</h6>
-                                    <hr />
-                                    <Table
-                                        jobs={object.jobs}
-                                        />
-                                </Paper>
-                                <hr />
-                            </span>
-                        )
-                    })}
-
+                    <Paper zDepth={1} style={{ padding: 10 }}>
+                        <Table
+                            jobs={props.data.JobFullTextSearch}
+                            />
+                    </Paper>
                 </Col>
             </Row>
         </Layout>
@@ -78,18 +69,28 @@ const Home = observer(props => {
 });
 
 const Data = gql`
-    query {
-         categories{
-            description
-            jobs {
-                Location
-                company
-                Job
-                id
-            }
+    query ($text: String!) {
+         JobFullTextSearch(text: $text){
+            id
+            Job
+            Location
+            company
         }
     }
 `;
 
-export default graphql(Data)(Home);
+const A = graphql(Data, {
+    options: ({ text }) => ({ variables: { text: text } }),
+})(Home);
 
+const Search = {
+    path: '/Search/:txt',
+    action({params}) {
+        return {
+            title: "PreviewJob",
+            component: <A text={params.txt} />,
+        };
+    },
+}
+
+export { Search }

@@ -18,6 +18,7 @@ import me from './queries/me';
 import job from './queries/job';
 import news from './queries/news';
 import categories from './queries/categories'
+import JobFullTextSearch from './queries/jobFullText'
 //
 
 const schema = new Schema({
@@ -28,7 +29,8 @@ const schema = new Schema({
       content,
       news,
       job,
-      categories
+      categories,
+      JobFullTextSearch
     },
   }),
   mutation: new ObjectType({

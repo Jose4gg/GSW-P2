@@ -15,7 +15,11 @@ import { Category, Job } from '../models';
 const categories = {
     type: new GraphQLList(CategoryType),
     resolve(_, args) {
-        return Category.findAll();
+        return Category.findAll({
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        });
     },
 };
 

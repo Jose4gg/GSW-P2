@@ -1,10 +1,10 @@
 import { User, UserProfile } from '../models'
 import {
-  GraphQLBoolean,
-  GraphQLInt as Int,
-  GraphQLNonNull as NonNull,
-  GraphQLObjectType as ObjectType,
-  GraphQLString as StringType,
+    GraphQLBoolean,
+    GraphQLInt as Int,
+    GraphQLNonNull as NonNull,
+    GraphQLObjectType as ObjectType,
+    GraphQLString as StringType,
 } from 'graphql';
 
 import JobType from '../types/JobType';
@@ -15,7 +15,12 @@ const JobById = {
         id: { type: new NonNull(Int) },
     },
     resolve(_, args) {
-        return Job.findOne({ where: {id: args.id }})
+        return Job.findOne({
+            where: { id: args.id },
+            order: [
+                ['createdAt', 'ASC']
+            ]
+        })
     },
 };
 
