@@ -1,3 +1,7 @@
+import { Col, Row } from 'react-bootstrap'
+import { Paper, RaisedButton, TextField } from 'material-ui';
+import React, { PropTypes } from 'react';
+
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
  *
@@ -7,20 +11,18 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 import App from '../../Stores/App'
-
-import { Col, Row } from 'react-bootstrap'
-import { Paper, RaisedButton, TextField } from 'material-ui';
-import React, { PropTypes } from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import Layout from '../../components/Layout';
-import Profile from './img'
-import s from './Home.css';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Table from './JobsTable';
 import Link from '../../components/Link'
-import { observer } from 'mobx-react'
+import Profile from './img'
+import Table from './JobsTable';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 import history from '../../core/history'
+import { observer } from 'mobx-react'
+import s from './Home.css';
+import {trans} from '../../Stores/Dictionary'
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
 const container = {
     padding: 15,
 }
@@ -38,18 +40,19 @@ const Home = observer(props => {
                                 name="search"
                                 onChange={(a) => App.setText(a.target.value)}
                                 floatingLabelText="Ingresa alguna posicion"
+                                defaultValue={props.text}
                                 />
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <Link to={`/Search/${App.text}`}>
                                 <RaisedButton
                                 primary={true}
-                                label="Buscar"
+                                label={trans.key.LAYOUT.SEARCH()}
                                 />
                             </Link>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <Link to="/Job/Create">
                                 <RaisedButton
-                                    label="Post A Job"
+                                    label={trans.key.LAYOUT.POST_A_JOB()}
 
                                     secondary={true}
                                     />

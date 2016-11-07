@@ -15,6 +15,7 @@ import App from './components/App';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import Html from './components/Html';
 import PrettyError from 'pretty-error';
+import RSS from 'rss'
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import UniversalRouter from 'universal-router';
@@ -32,6 +33,7 @@ import passport from './core/passport';
 import path from 'path';
 import routes from './routes';
 import schema from './data/schema';
+import xml from 'xml'
 
 const app = express();
 var corsOptions = {
@@ -66,6 +68,7 @@ app.use(expressJwt({
 
 app.use(passport.initialize());
 
+
 app.get('/login/facebook',
   passport.authenticate('facebook', { scope: ['email', 'user_location'], session: false })
 );
@@ -78,6 +81,31 @@ app.get('/login/facebook/return',
     res.redirect('/');
   }
 );
+app.get('/rss/:token', (req, res) => {
+
+  
+  var feed = new RSS({
+    title: 'JOBS',
+    feed_url: 'http://localhost.com/rss',
+    site_url: 'http://localhost.com',
+    language: ['en', 'es'],
+    categories: ['Category 1', 'Category 2', 'Category 3'],
+  });
+
+  feed.item({
+    title: 'item title',
+    description: 'use this for the content. It can include html.',
+    url: 'http://example.com/article4?this&that', // link to the item
+    guid: '1123', // optional - defaults to url
+    categories: ['Category 1', 'Category 2', 'Category 3', 'Category 4'], // optional - array of item categories
+    author: 'Guest Author', // optional - defaults to feed author property
+    date: 'May 27, 2012', // any format that js Date can parse.
+    lat: 33.417974, //optional latitude field for GeoRSS
+    long: -111.933231, //optional longitude field for GeoRSS
+  });
+  res.set('Content-Type', 'text/xml');
+  res.send(feed.xml());
+});
 
 //
 // Register API middleware
@@ -117,17 +145,17 @@ app.get('*', async (req, res, next) => {
     }
 
     const data = { ...route };
-    data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
-    data.style = [...css].join('');
-    data.script = assets.main.js;
-    data.chunk = assets[route.chunk] && assets[route.chunk].js;
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+data.children = ReactDOM.renderToString(<App context={context}>{route.component}</App>);
+data.style = [...css].join('');
+data.script = assets.main.js;
+data.chunk = assets[route.chunk] && assets[route.chunk].js;
+const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
 
-    res.status(route.status || 200);
-    res.send(`<!doctype html>${html}`);
+res.status(route.status || 200);
+res.send(`<!doctype html>${html}`);
   } catch (err) {
-    next(err);
-  }
+  next(err);
+}
 });
 
 //
@@ -144,7 +172,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
       title="Internal Server Error"
       description={err.message}
       style={errorPageStyle._getCss()} // eslint-disable-line no-underscore-dangle
-    >
+      >
       {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
     </Html>
   );

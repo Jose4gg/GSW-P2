@@ -1,20 +1,36 @@
-/**
- * React Starter Kit (https://www.reactstarterkit.com/)
- *
- * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
-
 import {
+  GraphQLList,
   GraphQLID as ID,
   GraphQLNonNull as NonNull,
   GraphQLObjectType as ObjectType,
   GraphQLString as StringType,
 } from 'graphql';
+import { Role, RoleUser } from '../models';
 
 import UserProfileType from './UserProfileType'
+
+const RoleType = new ObjectType({
+  name: 'Role',
+  fields: {
+    RoleId: {
+      type: StringType,
+    },
+    userId: {
+      type: StringType
+    },
+    description: {
+      type: StringType,
+      resolve(a){
+        return Role.findOne({
+          where: {id: a.RoleId},
+          attributes: ['description']
+        }).then(function(rol) {
+          return rol.description
+        })
+      }
+    }
+  }
+})
 
 const UserType = new ObjectType({
   name: 'User',
@@ -22,6 +38,14 @@ const UserType = new ObjectType({
     id: { type: new NonNull(ID) },
     email: { type: StringType },
     Profile: { type: UserProfileType },
+    roles: {
+      type: new GraphQLList(RoleType),
+      resolve(a) {
+        return RoleUser.findAll({
+          where: { userId: a.id }
+        })
+      }
+    }
   },
 });
 

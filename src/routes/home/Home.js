@@ -1,3 +1,7 @@
+import { Col, Row } from 'react-bootstrap'
+import { Paper, RaisedButton, TextField } from 'material-ui';
+import React, { PropTypes } from 'react';
+
 /**
  * React Starter Kit (https://www.reactstarterkit.com/)
  *
@@ -7,23 +11,21 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 import App from '../../Stores/App'
-import { Col, Row } from 'react-bootstrap'
-import { Paper, RaisedButton, TextField } from 'material-ui';
-import React, { PropTypes } from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import Layout from '../../components/Layout';
-import Profile from './img'
-import s from './Home.css';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import Table from './JobsTable';
 import Link from '../../components/Link'
+import Profile from './img'
+import Table from './JobsTable';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+import history from '../../core/history'
 import { observer } from 'mobx-react'
+import s from './Home.css';
+import {trans} from '../../Stores/Dictionary'
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
 const container = {
     padding: 15,
 }
-import history from '../../core/history'
-import {trans} from '../../Stores/Dictionary'
 const Home = observer(props => {
     if (!props.data) return <span />
     if (props.data.loading) return <span />
@@ -91,5 +93,7 @@ const Data = gql`
     }
 `;
 
-export default graphql(Data)(Home);
+export default graphql(Data, {
+    options: { pollInterval: 5000 },
+})(Home);
 

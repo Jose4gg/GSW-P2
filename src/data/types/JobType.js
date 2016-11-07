@@ -16,6 +16,7 @@ const JobType = new ObjectType({
     Job: { type: new NonNull(StringType) },
     Description: { type: new NonNull(StringType) },
     Email: { type: new NonNull(StringType) },
+    Secret: { type: new NonNull(StringType) },
     Location: { type: new NonNull(StringType) },
   },
 });

@@ -7,12 +7,12 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import Create from './CreateJob';
-import J from './JobDetail';
 import A from './View'
+import Create from './CreateJob';
+import Edit from './EditJob'
+import J from './JobDetail';
 import React from 'react';
 const title = 'Create a Job';
-
 export default {
 
   path: '/Job/Create',
@@ -45,6 +45,24 @@ const Viewer = {
     };
   },
 }
+const ViewerEdit = {
+   path: '/Job/View/:id/:secret',
+  action({params}) {
+    return {
+      title: "PreviewJob",
+      component: <A id={params.id} secret={params.secret}/>,
+    };
+  },
+}
+const EditJob = {
+   path: '/Job/Edit/:id/:secret',
+  action({params}) {
+    return {
+      title: "Edit Job",
+      component: <Edit id={params.id} secret={params.secret}/>,
+    };
+  },
+}
 
 
-export {JobDetail, Viewer};
+export {JobDetail, Viewer, ViewerEdit, EditJob};

@@ -8,8 +8,11 @@
  */
 
 /* eslint-disable global-require */
-import {JobDetail, Viewer} from './job'
+import {EditJob, JobDetail, Viewer, ViewerEdit} from './job'
+
+import {Profile} from './login'
 import {Search} from './home/Search'
+
 // The top-level (parent) route
 export default {
 
@@ -23,9 +26,12 @@ export default {
     require('./register').default,
     require('./admin').default,
     require('./job').default,
+    EditJob,
     JobDetail,
     Viewer,
     Search,
+    ViewerEdit,
+    Profile,
     // place new routes before...
     require('./content').default,
     require('./notFound').default,

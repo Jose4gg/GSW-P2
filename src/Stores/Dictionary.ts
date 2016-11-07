@@ -13,6 +13,8 @@ export  interface Dictionary {
         POSITION
         COMPANY
         OPTIONS
+        PROFILE
+        EDIT
     }
 }
 
@@ -28,7 +30,9 @@ export const EN : Dictionary = {
         LOCATION: "Location",
         COMPANY: "Company",
         OPTIONS: "Options",
-        POSITION: "Position"
+        POSITION: "Position",
+        PROFILE: "Profile",
+        EDIT: "Edit this"
     }
 }
 
@@ -44,7 +48,9 @@ export const ES : Dictionary = {
         COMPANY: "Compañia",
         LOCATION: "Localidad",
         OPTIONS: "Opciones",
-        POSITION: "Posición"
+        POSITION: "Posición",
+        PROFILE: "Perfil",
+        EDIT: "Editar"
     }
 }
 

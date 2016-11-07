@@ -1,11 +1,15 @@
 import { Col, Row } from 'react-bootstrap';
-import history from '../../core/history';
+import { Paper, RaisedButton } from 'material-ui'
 
 import Layout from '../../components/Layout';
+import Link from '../../components/Link'
 import React from 'react';
-import { Paper, RaisedButton } from 'material-ui'
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+import history from '../../core/history';
+import {observer} from 'mobx-react'
+import {trans} from '../../Stores/Dictionary'
+
 const Style = {
     padding: 15,
     marginTop: 5
@@ -14,7 +18,11 @@ const Style = {
 
 
 
-const JobDetail = (props) => {
+const JobDetail = observer(props => {
+    let a = <span></span>
+    if (props.secret) {
+        a = <Link to={`/Job/Edit/${props.id}/${props.secret}`}>{trans.key.LAYOUT.EDIT()}</Link>
+    }
     if(!props.data) return <span/>
     if(!props) return <span/>
     if (props.data.loading) {return <span />;}
@@ -43,13 +51,15 @@ const JobDetail = (props) => {
                         <br />
                         <h4>How to Apply?</h4>
                         Send your Resume to {props.data.job.Email} OR at {props.data.job.URL}
+                        <br/>
+                        {a}
                     </Col>
                 </Row>
                 <br />
             </Paper>
         </Layout>
     )
-}
+})
 
 
 const Data = gql`

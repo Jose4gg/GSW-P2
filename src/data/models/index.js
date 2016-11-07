@@ -9,11 +9,28 @@
 
 import Category from './Category';
 import Job from './Job'
+import Role from './Role'
+import RoleUser from './RoleUser';
 import User from './User';
 import UserClaim from './UserClaim';
 import UserLogin from './UserLogin';
 import UserProfile from './UserProfile';
 import sequelize from '../sequelize';
+
+// RoleUser.belongsToMany(Role, {
+//   foreignKey: 'id',
+//   as: 'Roles',
+// });
+
+Role.hasMany(RoleUser)
+RoleUser.belongsTo(Role)
+
+User.hasMany(RoleUser, {
+  foreignKey: 'userId',
+  as: 'Roles'
+});
+
+
 User.hasMany(UserLogin, {
   foreignKey: 'userId',
   as: 'logins',
@@ -31,6 +48,9 @@ User.hasMany(UserClaim, {
   onDelete: 'cascade',
 });
 
+
+
+
 User.hasOne(UserProfile, {
   foreignKey: 'userId',
   as: 'profile',
@@ -43,4 +63,4 @@ function sync(...args) {
 }
 
 export default { sync };
-export { User, UserLogin, UserClaim, UserProfile, Job, Category, sequelize };
+export { User, UserLogin, UserClaim, UserProfile, Job, Category, sequelize, Role, RoleUser };

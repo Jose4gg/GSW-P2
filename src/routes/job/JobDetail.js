@@ -1,13 +1,14 @@
 import { Col, Row } from 'react-bootstrap';
-import history from '../../core/history';
+import { Paper, RaisedButton } from 'material-ui'
 
 import Layout from '../../components/Layout';
 import React from 'react';
 import Work from './Jobs';
-import { observer } from 'mobx-react'
-import { Paper, RaisedButton } from 'material-ui'
-import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+import history from '../../core/history';
+import { observer } from 'mobx-react'
+
 const Style = {
     padding: 15,
     marginTop: 5
@@ -60,7 +61,7 @@ const JobDetail = observer(props =>
             <br />
             <RaisedButton primary={true} label="Publicar" onClick={() => props.submit(Work.job).then(({data})=>{
                 console.log(data);
-                history.push("/Job/View/" + data.jobCreate.id);
+                history.push("/Job/View/" + data.jobCreate.id + "/" + data.jobCreate.Secret);
                 Work.setJob = {};
             })} />
         </Paper>
@@ -71,6 +72,7 @@ const SubmitJob = gql`
     mutation ($company: String!, $type: String!, $Logo: String!, $URL: String!, $Job: String!, $Description: String!, $Email: String!, $Public: Boolean!, $Location: String!, $CategoryId: Int!) {
         jobCreate(company: $company,  type: $type, Logo: $Logo, URL: $URL, Job: $Job, Description: $Description, Email: $Email, Public: $Public, Location: $Location, CategoryId: $CategoryId) {
             id
+            Secret
         }
     }
 `;

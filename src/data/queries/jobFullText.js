@@ -1,12 +1,12 @@
-import { User, UserProfile } from '../models'
 import {
     GraphQLBoolean,
-    GraphQLInt as Int,
     GraphQLList,
+    GraphQLInt as Int,
     GraphQLNonNull as NonNull,
     GraphQLObjectType as ObjectType,
     GraphQLString as StringType,
 } from 'graphql';
+import { User, UserProfile } from '../models'
 
 import JobType from '../types/JobType';
 import { sequelize } from '../models';
@@ -18,7 +18,7 @@ const JobFullTextSearch = {
     },
     resolve(_, args) {
         //<TODO></TODO>
-        let text = `Select * from Job where FREETEXT(*, '${args.text}')`;
+        let text = `EXEC	[dbo].[JobFullTextSearch] @sp = N'${args.text}'`;
         return sequelize.query(text, { type: sequelize.QueryTypes.SELECT})
     },
 };

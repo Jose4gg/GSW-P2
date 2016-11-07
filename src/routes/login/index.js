@@ -7,9 +7,9 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
 import Login from './Login';
-
+import Pro from './profile';
+import React from 'react';
 const title = 'Log In';
 
 export default {
@@ -24,3 +24,15 @@ export default {
   },
 
 };
+
+const Profile = {
+  path: '/Profile',
+  action() {
+    return {
+      title: "Profile",
+      component: <Pro />,
+    };
+  }
+};
+
+export {Profile}
