@@ -16,7 +16,8 @@
           ],
           "tileSize": 256,
           "minzoom": 1,
-          "maxzoom": 20
+          "maxzoom": 20,
+          "bounds": [-180,-85.0511,180,85.0511]
         }
     },
     "sprite": "mapbox://sprites/mapbox/basic-v8",
