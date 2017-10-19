@@ -8,6 +8,14 @@
         "mapbox": {
             "url": "mapbox://mapbox.mapbox-streets-v7",
             "type": "vector"
+        }, 
+        "openWeather": {
+          "tiles": [
+            "http://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}?appid=626409db8d6710b890aee807d3f6a315"
+          ],
+          "tileSize": 256,
+          "minzoom": 1,
+          "maxzoom": 20
         }
     },
     "sprite": "mapbox://sprites/mapbox/basic-v8",
