@@ -877,7 +877,7 @@
             "source": "openWeather",
             "paint": {
                 "raster-fade-duration": 100,
-                "raster-opacity": 0.7
+                "raster-opacity": 0.28
             },
             "interactive": true
         }
