@@ -12,7 +12,7 @@
         "openWeather": {
           "type": "raster",
           "tiles": [
-            "https://tile.openweathermap.org/map/wind/{z}/{x}/{y}.png?appid=626409db8d6710b890aee807d3f6a315"
+            "https://tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png?appid=626409db8d6710b890aee807d3f6a315"
           ],
           "tileSize": 256
         }
