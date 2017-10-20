@@ -16,8 +16,7 @@
           ],
           "tileSize": 256,
           "minzoom": 1,
-          "maxzoom": 20,
-          "bounds": [-180,-85.0511,180,85.0511]
+          "maxzoom": 20
         }
     },
     "sprite": "mapbox://sprites/mapbox/basic-v8",
@@ -871,6 +870,14 @@
                 "text-halo-blur": 1
             },
             "source-layer": "country_label"
+        },
+        {
+            "id": "openWeather",
+            "type": "raster",
+            "source": "openWeather",
+            "paint": {
+                "raster-fade-duration": 100
+            }
         }
     ]
 }
