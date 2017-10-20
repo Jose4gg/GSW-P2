@@ -876,8 +876,10 @@
             "type": "raster",
             "source": "openWeather",
             "paint": {
-                "raster-fade-duration": 100
-            }
+                "raster-fade-duration": 100,
+                "raster-opacity": 0.7
+            },
+            "interactive": true
         }
     ]
 }
